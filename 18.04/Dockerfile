@@ -33,4 +33,14 @@ RUN set -x \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+ARG SOURCE_DIR=/tmp/project_src
+ADD $PWD $SOURCE_DIR
+RUN set -x \
+    ## build
+    && cd $SOURCE_DIR \
+    && ./gradlew --no-daemon build \
+    ## clean
+    && cd / \
+    && rm -rf $SOURCE_DIR
+
 CMD ["/bin/bash"]
