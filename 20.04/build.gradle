@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://mirrors.huaweicloud.com/repository/maven/'
+        }
+        maven {
+            url "https://plugins.gradle.org/m2"
+        }
+    }
+    apply from: file('gradle/buildscript.gradle'), to: buildscript
+    apply from: "$rootDir/gradle/dependencies.gradle"
+    dependencies {
+        classpath "gradle.plugin.com.dorongold.plugins:task-tree:$versions.taskTree"
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            url 'https://mirrors.huaweicloud.com/repository/maven/'
+        }
+    }
+}
+
+subprojects {
+    println "Project '$project.name'"
+}
+
+defaultTasks 'downloadWrapper'
+
+task downloadWrapper(type: Wrapper) {
+    description = "Download the gradle wrapper and requisite files. Overwrites existing wrapper files."
+    gradleVersion = versions.gradle
+}
+
+apply plugin: "base"
+apply plugin: "com.dorongold.task-tree"
+
