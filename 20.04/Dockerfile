@@ -13,7 +13,7 @@ RUN set -x \
     libboost-dev libboost-filesystem-dev \
     liblz4-dev libsnappy-dev libzstd-dev liblog4cxx-dev \
     libmsgpack-dev libzookeeper-mt-dev libcpprest-dev libhdf5-dev \
-    wget \
+    ca-certificates wget \
     ## install pulsar c++ client
     && mkdir -pv /tmp/pulsar/DEB \
     && cd /tmp/pulsar \
@@ -28,7 +28,7 @@ RUN set -x \
     && cd / \
     && rm -rf /tmp/pulsar \
     ## clean
-    && apt-get autoremove -y wget \
+    && apt-get autoremove -y ca-certificates wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
