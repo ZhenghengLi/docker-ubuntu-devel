@@ -9,8 +9,7 @@ RUN set -x \
     ## install by apt-get
     && apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ca-certificates \
-    openjdk-11-jdk build-essential \
+    build-essential cmake \
     libboost-dev libboost-filesystem-dev \
     liblz4-dev libsnappy-dev libzstd-dev liblog4cxx-dev \
     libmsgpack-dev libzookeeper-mt-dev libcpprest-dev libhdf5-dev \
@@ -32,15 +31,5 @@ RUN set -x \
     && apt-get autoremove -y wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-ARG SOURCE_DIR=/tmp/project_src
-ADD $PWD $SOURCE_DIR
-RUN set -x \
-    ## build
-    && cd $SOURCE_DIR \
-    && ./gradlew --no-daemon build \
-    ## clean
-    && cd / \
-    && rm -rf $SOURCE_DIR
 
 CMD ["/bin/bash"]
